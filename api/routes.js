@@ -37,5 +37,18 @@ module.exports = [
         });
       });
     }
+  },
+  {
+    path: '/api/nwt/books',
+    request: 'get',
+    callback: function(req,res) {
+      mongo.connect(DB_URL, function(err, db) {
+        db.collection('BibleBooks').find().toArray(function(err, docs) {
+          res.send(docs);
+          db.close();
+        });
+      });
+    }
   }
+
 ];
