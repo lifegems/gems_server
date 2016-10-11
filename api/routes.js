@@ -20,7 +20,6 @@ module.exports = [
     path: '/api/terms',
     request: 'post',
     callback: function(req,res) {
-      console.log(req.body);
       mongo.connect(DB_URL, function(err, db) {
         db.collection('terms').insertOne(req.body);
         db.close();
@@ -31,7 +30,12 @@ module.exports = [
     path: '/api/it',
     request: 'get',
     callback: function(req,res) {
-      res.send({name: 'insight', description: 'insight articles'});
+      mongo.connect(DB_URL, function(err, db) {
+        db.collection('articles').find().toArray(function(err, docs) {
+          res.send(docs);
+          db.close();
+        });
+      });
     }
   }
 ];
