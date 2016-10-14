@@ -1,9 +1,41 @@
 var insight = require('./insight/insight.controller.js');
 var mongo = require('mongodb').MongoClient;
 var DB_URL = "mongodb://localhost:4200/gems";
+var https = require('https');
 
 module.exports = [
   {
+    path: '/api/bible',
+    request: 'get',
+    callback: function(req,res) {
+      https.get('https://www.jw.org/en/publications/bible/nwt/books/json/html/', function(response) {
+        var data = "";
+        response.on('data', function(chunk) {
+          data += chunk;
+        });
+        response.on('end', function() {
+          res.send(data);
+        });
+      });
+    }
+  },
+  {
+    path: '/api/bible/:range',
+    request: 'get',
+    callback: function(req,res) {
+      var url = 'https://www.jw.org/en/publications/bible/nwt/books/json/html/' + req.params.range;
+      https.get(url, function(response) {
+        var data = "";
+        response.on('data', function(chunk) {
+          data += chunk;
+        });
+        response.on('end', function() {
+          res.send(data);
+        });
+      });
+    }
+ },
+ {
     path: '/api/terms',
     request: 'get',
     callback: function(req,res) {
