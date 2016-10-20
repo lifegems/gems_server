@@ -52,7 +52,7 @@ module.exports = [
     path: '/api/bible/:book/:chapter',
     request: 'get',
     callback: function(req,res) {
-      var file = 'data/nwt/books/' + req.params.book + req.params.chapter '.json';
+      var file = 'data/nwt/books/' + req.params.book + req.params.chapter + '.json';
       var contents = fs.readFileSync(file);
       res.send(JSON.parse(contents));
     }
