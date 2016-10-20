@@ -44,7 +44,7 @@ module.exports = [
     path: '/api/bible',
     request: 'get',
     callback: function(req,res) {
-      var contents = fs.readFileSync('../data/nwt/books/books.json');
+      var contents = fs.readFileSync('data/nwt/books/books.json');
       res.send(contents);
     }
   },
@@ -52,7 +52,7 @@ module.exports = [
     path: '/api/bible/:book/:chapter',
     request: 'get',
     callback: function(req,res) {
-      var contents = fs.readFileSync('../data/nwt/books/books.json');
+      var contents = fs.readFileSync('data/nwt/books/books.json');
       res.send(contents);
     }
   },
