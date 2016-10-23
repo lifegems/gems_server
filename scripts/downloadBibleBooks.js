@@ -39,7 +39,7 @@ function writeContentsToFile(filepath, contents) {
 
 function downloadAllBooks(bookdata) {
    bookdata = JSON.parse(bookdata);
-   for (var i = 15; i < 20; i++) {
+   for (var i = 18; i < 19; i++) {
       var bookid = i + 1;
       var book = bookdata.editionData.books[bookid];
       var chapters = parseInt(book.chapterCount);
