@@ -9,7 +9,6 @@ module.exports = [
     path: '/api/terms',
     request: 'get',
     callback: function(req,res) {
-
      mongo.connect(DB_URL, function(err, db) {
         db.collection('terms').find().toArray(function(err, docs) {
           res.send(docs);
@@ -34,6 +33,28 @@ module.exports = [
     callback: function(req,res) {
       mongo.connect(DB_URL, function(err, db) {
         db.collection('articles').find().toArray(function(err, docs) {
+          res.send(docs);
+          db.close();
+        });
+      });
+    }
+  },
+  {
+    path: '/api/notes',
+    request: 'post',
+    callback: function(req, res) {
+      mongo.connect(DB_URL, function(err, db) {
+        db.collection('notes').insertOne(req.body);
+        db.close();
+      });
+    }
+  },
+  {
+    path: '/api/notes/:book/:chapter',
+    request: 'get',
+    callback: function(req,res) {
+     mongo.connect(DB_URL, function(err, db) {
+        db.collection('notes').find().toArray(function(err, docs) {
           res.send(docs);
           db.close();
         });
