@@ -7,7 +7,7 @@ https.get('https://www.jw.org/en/publications/bible/nwt/books/json/html/', funct
     data += chunk;
   });
   response.on('end', function() {
-    writeContentsToFile('../data/nwt/books.json', data);
+    // writeContentsToFile('../data/nwt/books.json', data);
     downloadAllBooks(data);
   });
 });
@@ -39,7 +39,8 @@ function writeContentsToFile(filepath, contents) {
 
 function downloadAllBooks(bookdata) {
    bookdata = JSON.parse(bookdata);
-   for (var i = 18; i < 19; i++) {
+   let booknumber = 36;
+   for (var i = booknumber - 1; i < booknumber + 3; i++) {
       var bookid = i + 1;
       var book = bookdata.editionData.books[bookid];
       var chapters = parseInt(book.chapterCount);
