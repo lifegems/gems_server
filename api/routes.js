@@ -40,6 +40,18 @@ module.exports = [
     }
   },
   {
+    path: '/api/it/:term',
+    request: 'get',
+    callback: function(req,res) {
+      mongo.connect(DB_URL, function(err, db) {
+        db.collection('articles').find({'name': req.params.term }).toArray(function(err, docs) {
+          res.send(docs);
+          db.close();
+        });
+      });
+    }
+  },
+  {
     path: '/api/notes',
     request: 'post',
     callback: function(req, res) {
