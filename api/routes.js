@@ -44,7 +44,7 @@ module.exports = [
     request: 'get',
     callback: function(req,res) {
       mongo.connect(DB_URL, function(err, db) {
-        var searchTerm = '/^' + req.params.term + '/i';
+        var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
         db.collection('articles').find({'name': searchTerm }).toArray(function(err, docs) {
           res.send(docs);
           db.close();
