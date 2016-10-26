@@ -10,7 +10,14 @@ module.exports = [
     request: 'get',
     callback: function(req,res) {
      mongo.connect(DB_URL, function(err, db) {
-        db.collection('terms').find().toArray(function(err, docs) {
+        var search = {};
+        if (req.query.search) {
+          var searchTerm = RegExp(["(", req.query.search, ")+"].join(""), "gi");
+          search = {
+            name: searchTerm
+          };
+        }
+        db.collection('terms').find(search).toArray(function(err, docs) {
           res.send(docs);
           db.close();
         });
