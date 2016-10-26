@@ -28,6 +28,19 @@ module.exports = [
     }
   },
   {
+    path: '/api/terms/:term',
+    request: 'get',
+    callback: function(req,res) {
+      mongo.connect(DB_URL, function(err, db) {
+        var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
+        db.collection('terms').find({'name': searchTerm }).toArray(function(err, docs) {
+          res.send(docs);
+          db.close();
+        });
+      });
+    }
+  },
+  {
     path: '/api/it',
     request: 'get',
     callback: function(req,res) {
