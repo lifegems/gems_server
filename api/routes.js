@@ -8,33 +8,29 @@ var db = require('./db/db.js');
 var dbc = new db();
 
 module.exports = [
-  {
-     path: '/api/test',
-     request: 'get',
-     callback: function(req, res) {
-        dbc.select(function(items) {
-           res.send(items);
-        });
-     }
-  },
-  {
-    path: '/api/terms',
-    request: 'get',
-    callback: function(req,res) {
-     mongo.connect(DB_URL, function(err, db) {
-        var search = {};
-        if (req.query.search) {
-          var searchTerm = RegExp(["(", req.query.search, ")+"].join(""), "gi");
-          search = {
-            name: searchTerm
-          };
-        }
-        db.collection('terms').find(search).toArray(function(err, docs) {
-          res.send(docs);
-          db.close();
-        });
-      });
-    }
+   {
+      path: '/api/test',
+      request: 'get',
+      callback: function(req, res) {
+         dbc.select(function(items) {
+            res.send(items);
+         });
+      }
+   },
+   {
+      path: '/api/terms',
+      request: 'get',
+      callback: function(req,res) {var search = {};
+         if (req.query.search) {
+            var searchTerm = RegExp(["(", req.query.search, ")+"].join(""), "gi");
+            search = {
+               name: searchTerm
+            };
+         }
+         dbc.search('terms', search, function(data) {
+            res.send(data);
+         });
+      }
   },
   {
     path: '/api/terms',

@@ -6,9 +6,9 @@ module.exports = function DBConnector() {
       select: select
    };
 
-   function select(cb) {
+   function select(table, params, cb) {
       mongo.connect(DB_URL, function(err, db) {
-         db.collection('terms').find().toArray(function (err, items) {
+         db.collection(table).find(params).toArray(function (err, items) {
             db.close();
             return cb(items);
          });
