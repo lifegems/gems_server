@@ -1,4 +1,3 @@
-var insight = require('./insight/insight.controller.js');
 var mongo = require('mongodb').MongoClient;
 var DB_URL = "mongodb://localhost:4200/gems";
 var https = require('https');
