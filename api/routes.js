@@ -10,14 +10,14 @@ var dbc = new db();
 module.exports = [
   {
      path: '/api/test',
-     requests: 'get',
+     request: 'get',
      callback: function(req, res) {
         dbc.select(function(items) {
            res.send(items);
         });
      }
   },
- {
+  {
     path: '/api/terms',
     request: 'get',
     callback: function(req,res) {
