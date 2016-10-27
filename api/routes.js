@@ -27,7 +27,7 @@ module.exports = [
                name: searchTerm
             };
          }
-         dbc.search('terms', search, function(data) {
+         dbc.select('terms', search, function(data) {
             res.send(data);
          });
       }
