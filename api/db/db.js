@@ -7,10 +7,11 @@ function DBConnector() {
    };
 
    function select() {
-      mongo.connect(DB_URL, function(err, db) {
-         db.collection('terms').find().toArray(function(err, docs) {
-            console.log(docs);
+      return mongo.connect(DB_URL, function(err, db) {
+         return db.collection('terms').find().toArray(function(err, docs) {
             db.close();
+         }).then(function(items) {
+            return items;
          });
       });
    };
@@ -20,4 +21,6 @@ function DBConnector() {
 
 var dbc = new DBConnector();
 
-dbc.select();
+dbc.select().then(function(data) {
+   console.log(data);
+});
