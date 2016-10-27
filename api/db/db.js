@@ -8,9 +8,7 @@ function DBConnector() {
 
    function select() {
       return mongo.connect(DB_URL, function(err, db) {
-         return db.collection('terms').find().toArray(function(err, docs) {
-            db.close();
-         });
+         return db.collection('terms').find().toArray();
       }).then(function(items) {
          return items;
       });
