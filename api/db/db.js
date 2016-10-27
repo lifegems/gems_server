@@ -6,11 +6,11 @@ function DBConnector() {
       select: select
    };
 
-   function select() {
+   function select(cb) {
       return mongo.connect(DB_URL).then(function(err, db) {
-         return db.collection('terms').find().toArray();
-      }).then(function(items) {
-         return items;
+         return db.collection('terms').find().toArray(function (err, items) {
+            return cb(items);
+         });
       });
    };
 
@@ -19,6 +19,6 @@ function DBConnector() {
 
 var dbc = new DBConnector();
 
-dbc.select().then(function(data) {
+dbc.select(function(data) {
    console.log(data);
 });
