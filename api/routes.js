@@ -7,7 +7,10 @@ var fs    = require('fs');
 var db = require('./db/db.js');
 var dbc = new db();
 
-module.exports = [
+// routes
+var it_routes = require('./routes/it.routes.js');
+
+var main_routes = [
    {
       path: '/api/test',
       request: 'get',
@@ -56,37 +59,6 @@ module.exports = [
       });
     }
   },
-  {
-   path: '/api/it',
-   request: 'get',
-   callback: function(req,res) {
-      mongo.connect(DB_URL, function(err, db) {
-         var search = {};
-         if (req.query.search) {
-            var searchTerm = RegExp(["(", req.query.search, ")+"].join(""), "gi");
-            search = {
-               name: searchTerm
-            };
-         }
-         dbc.select('articles', search, function(data) {
-            res.send(data);
-         });
-       });
-      }
-   },
-   {
-      path: '/api/it/:term',
-      request: 'get',
-      callback: function(req,res) {
-         var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
-         var search = {
-            name: searchTerm
-         };
-         dbc.select('articles', search, function(data) {
-            res.send(data);
-         });
-      }
-   },
    {
       path: '/api/notes',
       request: 'post',
@@ -158,3 +130,8 @@ module.exports = [
       }
    }
 ];
+
+var all_routes = _.union(main_routes, it_routes);
+
+
+module.exports = all_routes;
