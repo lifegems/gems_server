@@ -1,21 +1,21 @@
 var mongo = require('mongodb').MongoClient;
 var DB_URL = "mongodb://localhost:4200/gems";
 
-module.exports = function DBConnector() {
-   var api = {};
+function DBConnector() {
+   var api = {
+      select: select
+   };
 
-   function select(table, params) {
-      params = (params) : params : {};
-      return mongo.connect(DB_URL).then(function(err, db) {
-         return db.collection(table).find(params).toArray();
-      }).then(function(items) {
-         return items;
+   function select() {
+      db.collection('terms').find(search).toArray(function(err, docs) {
+         console.log(docs);
+         db.close();
       });
-   }]
+   };
 
    return api;
 }
 
 var dbc = new DBConnector();
 
-console.log(dbc.select('terms'));
+dbc.select();
