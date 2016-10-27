@@ -10,9 +10,9 @@ function DBConnector() {
       return mongo.connect(DB_URL, function(err, db) {
          return db.collection('terms').find().toArray(function(err, docs) {
             db.close();
-         }).then(function(items) {
-            return items;
          });
+      }).then(function(items) {
+         return items;
       });
    };
 
