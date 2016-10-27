@@ -132,7 +132,6 @@ var main_routes = [
    }
 ];
 
-var all_routes = _.union(main_routes, it_routes);
-
+var all_routes = main_routes.concat(it_routes);
 
 module.exports = all_routes;

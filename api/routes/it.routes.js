@@ -1,4 +1,9 @@
-module.export = [
+var mongo = require('mongodb').MongoClient;
+var DB_URL = "mongodb://localhost:4200/gems";
+var db     = require('../db/db.js');
+var dbc    = new db();
+
+module.exports = [
    {
       path: '/api/it',
       request: 'get',
