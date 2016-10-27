@@ -37,15 +37,15 @@ routes.forEach(function(route) {
 });
 
 // Initiate server
-if (key && cert) {
+// if (key && cert) {
    var httpsServer = https.createServer(https_opts, app);
    httpsServer.listen(443, function() {
      console.log("Listening to https://localhost:443");
    });
-} else {
-   var httpServer = http.createServer(app);
-   httpServer.listen(443, function() {
-      console.log("Listening to http://localhost:443");
-   });
-}
+// } else {
+//    var httpServer = http.createServer(app);
+//    httpServer.listen(443, function() {
+//       console.log("Listening to http://localhost:443");
+//    });
+// }
 
