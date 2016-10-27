@@ -6,6 +6,8 @@ var fs    = require('fs');
 var db = require('./db/db.js');
 var dbc = new db();
 
+var _ = require('underscore');
+
 // routes
 var it_routes = require('./routes/it.routes.js');
 
