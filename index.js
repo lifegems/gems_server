@@ -14,8 +14,8 @@ var cert = (fs.exists(CRT_FILE)) ? fs.readFileSync(CRT_FILE) : null;
 
 // setup server options
 var https_opts = {
-  key: key,
-  cert: cert
+  key: fs.readFileSync(KEY_FILE),
+  cert: fs.readFileSync(CRT_FILE)
 };
 var app = express();
 app.use(cors());
