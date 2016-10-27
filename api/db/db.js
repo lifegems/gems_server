@@ -7,8 +7,8 @@ function DBConnector() {
    };
 
    function select(cb) {
-      return mongo.connect(DB_URL).then(function(err, db) {
-         return db.collection('terms').find().toArray(function (err, items) {
+      mongo.connect(DB_URL).then(function(err, db) {
+         db.collection('terms').find().toArray(function (err, items) {
             return cb(items);
          });
       });
