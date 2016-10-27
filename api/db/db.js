@@ -7,7 +7,7 @@ function DBConnector() {
    };
 
    function select(cb) {
-      mongo.connect(DB_URL).then(function(err, db) {
+      mongo.connect(DB_URL, function(err, db) {
          db.collection('terms').find().toArray(function (err, items) {
             return cb(items);
          });
