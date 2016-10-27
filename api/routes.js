@@ -75,16 +75,17 @@ module.exports = [
       }
    },
    {
-   path: '/api/it/:term',
-   request: 'get',
-   callback: function(req,res) {
-      var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
-      var search = {
-         name: searchTerm
-      };
-      dbc.select('articles', search, function(data) {
-         res.send(data);
-      });
+      path: '/api/it/:term',
+      request: 'get',
+      callback: function(req,res) {
+         var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
+         var search = {
+            name: searchTerm
+         };
+         dbc.select('articles', search, function(data) {
+            res.send(data);
+         });
+      }
    },
    {
       path: '/api/notes',
