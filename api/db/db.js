@@ -7,9 +7,11 @@ function DBConnector() {
    };
 
    function select() {
-      db.collection('terms').find(search).toArray(function(err, docs) {
-         console.log(docs);
-         db.close();
+      mongo.connect(DB_URL, function(err, db) {
+         db.collection('terms').find(search).toArray(function(err, docs) {
+            console.log(docs);
+            db.close();
+         });
       });
    };
 
