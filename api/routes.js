@@ -97,16 +97,16 @@ module.exports = [
       }
    },
    {
-    path: '/api/notes/:book/:chapter',
-    request: 'get',
-    callback: function(req,res) {
-     mongo.connect(DB_URL, function(err, db) {
-        db.collection('notes').find().toArray(function(err, docs) {
-          res.send(docs);
-          db.close();
-        });
-      });
-    }
+      path: '/api/notes/:book/:chapter',
+      request: 'get',
+      callback: function(req,res) {
+         mongo.connect(DB_URL, function(err, db) {
+            db.collection('notes').find().toArray(function(err, docs) {
+               res.send(docs);
+               db.close();
+            });
+         });
+      }
    },
    {
       path: '/api/bible',
