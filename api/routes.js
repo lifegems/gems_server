@@ -4,7 +4,19 @@ var DB_URL = "mongodb://localhost:4200/gems";
 var https = require('https');
 var fs    = require('fs');
 
+var db = require('./db/db.js');
+var dbc = new db();
+
 module.exports = [
+  {
+     path: '/api/test',
+     requests: 'get',
+     callback: function(req, res) {
+        dbc.select(function(items) {
+           res.send(items);
+        });
+     }
+  },
  {
     path: '/api/terms',
     request: 'get',

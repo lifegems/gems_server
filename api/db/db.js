@@ -1,7 +1,7 @@
 var mongo = require('mongodb').MongoClient;
 var DB_URL = "mongodb://localhost:4200/gems";
 
-function DBConnector() {
+module.exports = function DBConnector() {
    var api = {
       select: select
    };
@@ -9,6 +9,7 @@ function DBConnector() {
    function select(cb) {
       mongo.connect(DB_URL, function(err, db) {
          db.collection('terms').find().toArray(function (err, items) {
+            db.close();
             return cb(items);
          });
       });
@@ -16,9 +17,3 @@ function DBConnector() {
 
    return api;
 }
-
-var dbc = new DBConnector();
-
-dbc.select(function(data) {
-   console.log(data);
-});
