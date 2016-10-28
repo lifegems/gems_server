@@ -1,5 +1,3 @@
-var mongo = require('mongodb').MongoClient;
-var DB_URL = "mongodb://localhost:4200/gems";
 var https = require('https');
 var fs    = require('fs');
 
@@ -41,10 +39,7 @@ var main_routes = [
     path: '/api/terms',
     request: 'post',
     callback: function(req,res) {
-      mongo.connect(DB_URL, function(err, db) {
-        db.collection('terms').insertOne(req.body);
-        db.close();
-      });
+      dbc.insert('terms', req.body);
     }
   },
   {
@@ -64,21 +59,15 @@ var main_routes = [
       path: '/api/notes',
       request: 'post',
       callback: function(req, res) {
-         mongo.connect(DB_URL, function(err, db) {
-            db.collection('notes').insertOne(req.body);
-            db.close();
-         });
+         dbc.insert('notes', req.body);
       }
    },
    {
       path: '/api/notes/:book/:chapter',
       request: 'get',
       callback: function(req,res) {
-         mongo.connect(DB_URL, function(err, db) {
-            db.collection('notes').find().toArray(function(err, docs) {
-               res.send(docs);
-               db.close();
-            });
+         dbc.select('notes', search, function(data) {
+            res.send(data);
          });
       }
    },

@@ -3,6 +3,7 @@ var DB_URL = "mongodb://localhost:4200/gems";
 
 module.exports = function DBConnector() {
    var api = {
+      insert: insert,
       select: select
    };
 
@@ -14,6 +15,13 @@ module.exports = function DBConnector() {
          });
       });
    };
+
+   function insert(table, data) {
+      mongo.connect(DB_URL, function(err, db) {
+         db.collection(table).insertOne(data);
+         db.close();
+      });
+   }
 
    return api;
 }
