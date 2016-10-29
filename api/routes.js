@@ -72,6 +72,34 @@ var main_routes = [
       }
    },
    {
+      path: '/api/notes/:book',
+      request: 'get',
+      callback: function(req,res) {
+         var search = {
+            book: req.params.book
+         };
+         dbc.select('notes', search, function(data) {
+            res.send(data);
+         });
+      }
+   },
+   {
+      path: '/api/notes/:book/:chapter',
+      request: 'get',
+      callback: function(req,res) {
+         var search = {
+            book: req.params.book,
+            chapter: req.params.chapter
+         };
+         if (req.query.type) {
+            search.type = req.query.type;
+         }
+         dbc.select('notes', search, function(data) {
+            res.send(data);
+         });
+      }
+   },
+   {
       path: '/api/bible',
       request: 'get',
       callback: function(req,res) {
