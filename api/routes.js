@@ -63,10 +63,10 @@ var main_routes = [
       }
    },
    {
-      path: '/api/notes/:book/:chapter',
+      path: '/api/notes',
       request: 'get',
       callback: function(req,res) {
-         dbc.select('notes', search, function(data) {
+         dbc.select('notes', {}, function(data) {
             res.send(data);
          });
       }
