@@ -35,30 +35,30 @@ var main_routes = [
          });
       }
   },
-  {
-    path: '/api/terms',
-    request: 'post',
-    callback: function(req,res) {
-      dbc.insert('terms', req.body);
-    }
-  },
-  {
-    path: '/api/terms/:term',
-    request: 'get',
-    callback: function(req,res) {
-      var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
-      var search = {
-         name: searchTerm
-      };
-      dbc.select('terms', search, function(data) {
-         res.send(data);
-      });
-    }
-  },
+   {
+      path: '/api/terms',
+      request: 'post',
+      callback: function(req,res) {
+         dbc.insert('terms', req.body);
+      }
+   },
+   {
+      path: '/api/terms/:term',
+      request: 'get',
+      callback: function(req,res) {
+         var searchTerm = RegExp(["^", req.params.term, "$"].join(""), "i");
+         var search = {
+            name: searchTerm
+         };
+         dbc.select('terms', search, function(data) {
+            res.send(data);
+         });
+      }
+   },
    {
       path: '/api/notes',
       request: 'post',
-      callback: function(req, res) {
+      callback: function(req,res) {
          dbc.insert('notes', req.body);
       }
    },
