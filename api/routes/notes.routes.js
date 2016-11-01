@@ -1,5 +1,3 @@
-var mongo = require('mongodb').MongoClient;
-var DB_URL = "mongodb://localhost:4200/gems";
 var db     = require('../db/db.js');
 var dbc    = new db();
 
@@ -24,9 +22,8 @@ module.exports = [
       path: '/api/notes/:book',
       request: 'get',
       callback: function(req,res) {
-         var searchTerm = RegExp(["^", req.params.book, "$"].join(""), "i");
          var search = {
-            book: searchTerm
+            book: parseInt(req.params.book)
          };
          dbc.select('notes', search, function(data) {
             res.send(data);
@@ -37,15 +34,12 @@ module.exports = [
       path: '/api/notes/:book/:chapter',
       request: 'get',
       callback: function(req,res) {
-         var searchBook = RegExp(["^", +req.params.book, "$"].join(""), "i");
-         var searchChapter = RegExp(["^", +req.params.chapter, "$"].join(""), "i");
          var search = {
-            book: searchBook,
-            chapter: searchChapter
+            book: parseInt(req.params.book),
+            chapter: parseInt(req.params.chapter)
          };
          if (req.query.type) {
-            var searchType = RegExp(["^", +req.query.type, "$"].join(""), "i");
-            search.type = searchType;
+            search.type = req.query.type;
          }
          dbc.select('notes', search, function(data) {
             res.send(data);
