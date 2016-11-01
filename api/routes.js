@@ -75,8 +75,9 @@ var main_routes = [
       path: '/api/notes/:book',
       request: 'get',
       callback: function(req,res) {
+         var searchTerm = RegExp(["^", req.params.book, "$"].join(""), "i");
          var search = {
-            book: req.params.book
+            book: searchTerm
          };
          dbc.select('notes', search, function(data) {
             res.send(data);
@@ -87,12 +88,15 @@ var main_routes = [
       path: '/api/notes/:book/:chapter',
       request: 'get',
       callback: function(req,res) {
+         var searchBook = RegExp(["^", req.params.book, "$"].join(""), "i");
+         var searchChapter = RegExp(["^", req.params.chapter, "$"].join(""), "i");
          var search = {
-            book: req.params.book,
-            chapter: req.params.chapter
+            book: searchBook,
+            chapter: searchChapter
          };
          if (req.query.type) {
-            search.type = req.query.type;
+            var searchType = RegExp(["^", req.query.type, "$"].join(""), "i");
+            search.type = searchType;
          }
          dbc.select('notes', search, function(data) {
             res.send(data);
